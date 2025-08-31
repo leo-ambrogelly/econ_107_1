@@ -18,11 +18,11 @@ graph export problem_3b_boxplot.png, replace
 
 * Problem C: Inspection of variables.
 misstable summarize age educ empl hrwage married
-tab indly3d_14 if hrwage == 0, sort
+tab indly3d_14 if hrwage==0, sort
 * The above tab command returns 5,030 instances of 0-wages, which should not be possible.
 * The fact that this is a low proportion of the population makes it difficult to believe that these 0s represent salaried workers.
 tab empl if hrwage==0
 misstable summarize hrwage if empl==0
 * The above tab command shows that 0-wages are far more common with people marked as employed.
 * The above misstable command seems to suggest that coding unemployment with missing values in wages is far more common.
-* I can only concluse that 0-wages are an error of some kind.
+* I can only conclude that 0-wages are an error of some kind.
