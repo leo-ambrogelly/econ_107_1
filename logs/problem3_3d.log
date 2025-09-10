@@ -1,0 +1,27 @@
+------------------------------------------------------------------------------------
+      name:  q3d
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem3_3d.log
+  log type:  text
+ opened on:   3 Sep 2025, 23:29:48
+
+. 
+. display as text "Problem 3D: Converting string household id (hhid2) to numeric"
+Problem 3D: Converting string household id (hhid2) to numeric
+
+. destring hhid2, generate(hhid2_num)
+hhid2: all characters numeric; hhid2_num generated as int
+
+. label variable hhid2_num "Household ID (numeric, from hhid2)"
+
+. format hhid2_num %12.0f
+
+. display as result "Created hhid2_num from hhid2 via destring."
+Created hhid2_num from hhid2 via destring.
+
+. 
+. log close q3d
+      name:  q3d
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem3_3d.log
+  log type:  text
+ closed on:   3 Sep 2025, 23:29:48
+------------------------------------------------------------------------------------

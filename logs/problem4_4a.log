@@ -1,0 +1,37 @@
+------------------------------------------------------------------------------------
+      name:  q4a
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem4_4a.log
+  log type:  text
+ opened on:   4 Sep 2025, 00:33:12
+
+. 
+. display as text "Problem 4A: Correlation between costbmp and gallons"
+Problem 4A: Correlation between costbmp and gallons
+
+. 
+. quietly count if costbmp<. & gallons<.
+
+. local Npairs = r(N)
+
+. 
+. quietly corr costbmp gallons if costbmp<. & gallons<.
+
+. matrix C = r(C)
+
+. scalar rho_full = C[1,2]
+
+. display as result "Full-sample corr(costbmp, gallons) = " %9.4f rho_full
+Full-sample corr(costbmp, gallons) =    0.4619
+
+. display as text "The above returns a correlation coefficient of 0.4619, indicating
+>  a moderately strong (in economics) positive relationship."
+The above returns a correlation coefficient of 0.4619, indicating a moderately stron
+> g (in economics) positive relationship.
+
+. 
+. log close q4a
+      name:  q4a
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem4_4a.log
+  log type:  text
+ closed on:   4 Sep 2025, 00:33:12
+------------------------------------------------------------------------------------

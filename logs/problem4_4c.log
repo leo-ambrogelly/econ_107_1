@@ -1,0 +1,56 @@
+------------------------------------------------------------------------------------
+      name:  q4c
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem4_4c.log
+  log type:  text
+ opened on:   4 Sep 2025, 00:33:12
+
+. 
+. display as text "Problem 4C: Average cost per gallon by 20 bins of capacity (gallo
+> ns)"
+Problem 4C: Average cost per gallon by 20 bins of capacity (gallons)
+
+. 
+. gen double cost_per_gallon = .
+(1,306 missing values generated)
+
+. replace cost_per_gallon = costbmp / gallons if costbmp<. & gallons>0
+(1,306 real changes made)
+
+. label variable cost_per_gallon "Cost per gallon (USD per gallon)"
+
+. 
+. preserve
+
+.     keep if cost_per_gallon<. & gallons>0
+(0 observations deleted)
+
+.     egen gallon_bins = cut(gallons), group(20)
+
+.     collapse (mean) avg_cpg = cost_per_gallon, by(gallon_bins)
+
+.     sort gallon_bins
+
+.     gen bin_index = _n
+
+. 
+.     twoway bar avg_cpg bin_index, ///
+>         xlabel(none) ///
+>         ytitle("Average cost per gallon (USD)") ///
+>         xtitle("Capacity (20 bins)") ///
+>         title("Average cost per gallon by capacity (20 bins)")
+
+.         graph export "figures/problem_4c_cpg_by_bin.png", replace
+file /Users/leoambrogelly/Projects/econ_107_1/figures/problem_4c_cpg_by_bin.png
+    saved as PNG format
+
+.         graph close
+
+. restore
+
+. 
+. log close q4c
+      name:  q4c
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem4_4c.log
+  log type:  text
+ closed on:   4 Sep 2025, 00:33:12
+------------------------------------------------------------------------------------

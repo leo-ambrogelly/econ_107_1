@@ -1,0 +1,79 @@
+------------------------------------------------------------------------------------
+      name:  q3c
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem3_3c.log
+  log type:  text
+ opened on:   3 Sep 2025, 23:29:47
+
+. 
+. display as text "Problem 3C: Inspecting variables and documenting issues"
+Problem 3C: Inspecting variables and documenting issues
+
+. misstable summarize age educ empl hrwage married ind2d_03
+                                                               Obs<.
+                                                +------------------------------
+               |                                | Unique
+      Variable |     Obs=.     Obs>.     Obs<.  | values        Min         Max
+  -------------+--------------------------------+------------------------------
+          educ |    39,522             140,562  |      5          1           5
+          empl |    40,153             139,931  |      2          0           1
+        hrwage |    90,272              89,812  |   >500          0    9615.385
+      ind2d_03 |    92,360              87,724  |     52          1          52
+  -----------------------------------------------------------------------------
+
+. 
+. * Finding #1: hrwage contains zeros and very large outliers
+. quietly count if empl==1
+
+. local Nemp = r(N)
+
+. quietly count if empl==1 & hrwage==0
+
+. local Nzero = r(N)
+
+. quietly count if empl==1 & hrwage>0 & hrwage<.
+
+. local Npos  = r(N)
+
+. quietly count if empl==1 & hrwage>500 & hrwage<.
+
+. local Nhi   = r(N)
+
+. 
+. display as result "Finding #1 - hrwage: Among employed (N = `Nemp'), `Nzero' cases
+>  have hrwage==0 and `Nhi' cases have hrwage>500."
+Finding #1 - hrwage: Among employed (N = 83559), 4529 cases have hrwage==0 and 105 c
+> ases have hrwage>500.
+
+. display as text   "Interpretation: Zeros are likely pseudo-missing and should be r
+> ecoded to missing; extreme values suggest trimming before analysis."
+Interpretation: Zeros are likely pseudo-missing and should be recoded to missing; ex
+> treme values suggest trimming before analysis.
+
+. 
+. * Finding #2: ind2d_03 is structurally missing for children and the non-employed
+. quietly count if age>=16 & empl==1
+
+. local Nwork = r(N)
+
+. quietly count if age>=16 & empl==1 & missing(ind2d_03)
+
+. local Nmiss_ind = r(N)
+
+. 
+. display as result "Finding #2 - ind2d_03: For working-age employed (age>=16 & empl
+> ==1; N=`Nwork'), missing industry codes = `Nmiss_ind'."
+Finding #2 - ind2d_03: For working-age employed (age>=16 & empl==1; N=83401), missin
+> g industry codes = 0.
+
+. display as text   "Interpretation: Industry is undefined for those <16 and not emp
+> loyed; restrict industry-based analyses to age>=16 & empl==1."
+Interpretation: Industry is undefined for those <16 and not employed; restrict indus
+> try-based analyses to age>=16 & empl==1.
+
+. 
+. log close q3c
+      name:  q3c
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem3_3c.log
+  log type:  text
+ closed on:   3 Sep 2025, 23:29:48
+------------------------------------------------------------------------------------

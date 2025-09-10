@@ -1,0 +1,62 @@
+------------------------------------------------------------------------------------
+      name:  q4b
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem4_4b.log
+  log type:  text
+ opened on:   4 Sep 2025, 00:33:12
+
+. 
+. display as text "Problem 4B: Five 20 percent random samples; corr(costbmp, gallons
+> ) vs full sample"
+Problem 4B: Five 20 percent random samples; corr(costbmp, gallons) vs full sample
+
+. 
+. matrix M = J(5,4,.)
+
+. matrix colnames M = sample Npairs rho delta_vs_full
+
+. 
+. forvalues r = 1/5 {
+  2.     preserve
+  3.         sample 20
+  4.         quietly count if costbmp<. & gallons<.
+  5.         local Npairs = r(N)
+  6.         quietly corr costbmp gallons if costbmp<. & gallons<.
+  7.         matrix C = r(C)
+  8.         scalar rho_r = C[1,2]
+  9.         matrix M[`r',1] = `r'
+ 10.         matrix M[`r',2] = `Npairs'
+ 11.         matrix M[`r',3] = rho_r
+ 12.         matrix M[`r',4] = rho_r - rho_full
+ 13.         display as result "Sample `r': N=`Npairs', rho=" %9.4f rho_r ", distanc
+> e from full=" %9.4f (rho_r - rho_full)
+ 14.     restore
+ 15. }
+(1,045 observations deleted)
+Sample 1: N=261, rho=   0.5048, distance from full=   0.0429
+(1,045 observations deleted)
+Sample 2: N=261, rho=   0.3921, distance from full=  -0.0699
+(1,045 observations deleted)
+Sample 3: N=261, rho=   0.4730, distance from full=   0.0111
+(1,045 observations deleted)
+Sample 4: N=261, rho=   0.4117, distance from full=  -0.0503
+(1,045 observations deleted)
+Sample 5: N=261, rho=   0.4030, distance from full=  -0.0589
+
+. 
+. matrix list M, format(%9.4f)
+
+M[5,4]
+          sample        Npairs           rho  delta_vs_f~l
+r1        1.0000      261.0000        0.5048        0.0429
+r2        2.0000      261.0000        0.3921       -0.0699
+r3        3.0000      261.0000        0.4730        0.0111
+r4        4.0000      261.0000        0.4117       -0.0503
+r5        5.0000      261.0000        0.4030       -0.0589
+
+. 
+. log close q4b
+      name:  q4b
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem4_4b.log
+  log type:  text
+ closed on:   4 Sep 2025, 00:33:12
+------------------------------------------------------------------------------------

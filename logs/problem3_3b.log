@@ -1,0 +1,57 @@
+------------------------------------------------------------------------------------
+      name:  q3b
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem3_3b.log
+  log type:  text
+ opened on:   3 Sep 2025, 23:29:46
+
+. 
+. display as text "Problem 3B: Box plot of hrwage by educ (nooutsides) — Main Figure
+> "
+Problem 3B: Box plot of hrwage by educ (nooutsides) — Main Figure
+
+. graph box hrwage, over(educ) nooutsides ///
+>     title("Hourly wage by education category") ///
+>     ytitle("Hourly wage (US$/hour)")
+
+. graph export "figures/problem_3b_boxplot.png", replace
+file /Users/leoambrogelly/Projects/econ_107_1/figures/problem_3b_boxplot.png saved
+    as PNG format
+
+. graph close
+
+. 
+. display as text "Appendix A1: Cleaned-sample box plot (age>=16, employed, hrwage>0
+>  & <=500)"
+Appendix A1: Cleaned-sample box plot (age>=16, employed, hrwage>0 & <=500)
+
+. preserve
+
+.     keep if age>=16 & empl==1
+(96,683 observations deleted)
+
+.     replace hrwage = . if hrwage==0
+(4,522 real changes made, 4,522 to missing)
+
+.     drop if hrwage>500
+(6,865 observations deleted)
+
+.     graph box hrwage, over(educ) nooutsides ///
+>         title("Appendix A1: Hourly wage by education (cleaned sample)") ///
+>         ytitle("Hourly wage (US$/hour)")
+
+.     graph export "figures/appendix_3b_boxplot_clean.png", replace
+file
+    /Users/leoambrogelly/Projects/econ_107_1/figures/appendix_3b_boxplot_clean.png
+    saved as PNG format
+
+.         graph close
+
+. restore
+
+. 
+. log close q3b
+      name:  q3b
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem3_3b.log
+  log type:  text
+ closed on:   3 Sep 2025, 23:29:47
+------------------------------------------------------------------------------------

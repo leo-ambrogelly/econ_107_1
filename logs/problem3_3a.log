@@ -1,0 +1,44 @@
+------------------------------------------------------------------------------------
+      name:  q3a
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem3_3a.log
+  log type:  text
+ opened on:   3 Sep 2025, 23:29:46
+
+. 
+. quietly dtable age educ empl hrwage married, ///
+>     continuous(, statistics(count mean sd min max)) ///
+>     nolistwise nosample
+
+. 
+. collect layout (var) (result[count mean sd min max])
+
+Collection: DTable
+      Rows: var
+   Columns: result[count mean sd min max]
+   Table 1: 5 x 5
+
+-------------------------------------------------------------------------------------------------------
+                      Number of nonmissing values  Mean  Standard deviation Minimum value Maximum value
+-------------------------------------------------------------------------------------------------------
+Age                                       180,084 36.952           (22.849)         0.000        85.000
+Education level                           140,562  2.807            (1.214)         1.000         5.000
+Employed                                  139,931  0.597            (0.490)         0.000         1.000
+Hourly wage (nominal)                      89,812 26.706           (64.059)         0.000     9,615.385
+Married                                   180,084  0.406            (0.491)         0.000         1.000
+-------------------------------------------------------------------------------------------------------
+
+. collect label levels result count "Obs" mean "Mean" sd "Std. Dev." min "Min" max "
+> Max", modify
+
+. collect style tex, nobegintable nocentering
+
+. collect export "problem_3a_table.tex", tableonly replace
+(collection DTable exported to file problem_3a_table.tex)
+
+. 
+. log close q3a
+      name:  q3a
+       log:  /Users/leoambrogelly/Projects/econ_107_1/logs/problem3_3a.log
+  log type:  text
+ closed on:   3 Sep 2025, 23:29:46
+------------------------------------------------------------------------------------
